@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		86855B9725536C8D002809D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86855B9625536C8D002809D1 /* AppDelegate.swift */; };
-		86855B9925536C8D002809D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86855B9825536C8D002809D1 /* SceneDelegate.swift */; };
-		86855B9B25536C8D002809D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86855B9A25536C8D002809D1 /* ViewController.swift */; };
 		86855B9E25536C8D002809D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86855B9C25536C8D002809D1 /* Main.storyboard */; };
 		86855BA025536C8E002809D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86855B9F25536C8E002809D1 /* Assets.xcassets */; };
 		86855BA325536C8E002809D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86855BA125536C8E002809D1 /* LaunchScreen.storyboard */; };
 		86855BAE25536C8E002809D1 /* Movie_DatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86855BAD25536C8E002809D1 /* Movie_DatabaseTests.swift */; };
 		86855BB925536C8E002809D1 /* Movie_DatabaseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86855BB825536C8E002809D1 /* Movie_DatabaseUITests.swift */; };
+		86855BE125537127002809D1 /* BrowseMovies.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86855BE025537127002809D1 /* BrowseMovies.storyboard */; };
+		86855BEC255372F7002809D1 /* SearchMovies.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86855BEB255372F7002809D1 /* SearchMovies.storyboard */; };
+		86855BF125537328002809D1 /* SavedMovies.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86855BF025537328002809D1 /* SavedMovies.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +38,6 @@
 /* Begin PBXFileReference section */
 		86855B9325536C8D002809D1 /* Movie Database.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movie Database.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86855B9625536C8D002809D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		86855B9825536C8D002809D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		86855B9A25536C8D002809D1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		86855B9D25536C8D002809D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		86855B9F25536C8E002809D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		86855BA225536C8E002809D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +48,9 @@
 		86855BB425536C8E002809D1 /* Movie DatabaseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Movie DatabaseUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86855BB825536C8E002809D1 /* Movie_DatabaseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie_DatabaseUITests.swift; sourceTree = "<group>"; };
 		86855BBA25536C8E002809D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		86855BE025537127002809D1 /* BrowseMovies.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BrowseMovies.storyboard; sourceTree = "<group>"; };
+		86855BEB255372F7002809D1 /* SearchMovies.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchMovies.storyboard; sourceTree = "<group>"; };
+		86855BF025537328002809D1 /* SavedMovies.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SavedMovies.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +101,11 @@
 		86855B9525536C8D002809D1 /* Movie Database */ = {
 			isa = PBXGroup;
 			children = (
-				86855B9625536C8D002809D1 /* AppDelegate.swift */,
-				86855B9825536C8D002809D1 /* SceneDelegate.swift */,
-				86855B9A25536C8D002809D1 /* ViewController.swift */,
-				86855B9C25536C8D002809D1 /* Main.storyboard */,
-				86855B9F25536C8E002809D1 /* Assets.xcassets */,
-				86855BA125536C8E002809D1 /* LaunchScreen.storyboard */,
-				86855BA425536C8E002809D1 /* Info.plist */,
+				86855BCC25536D97002809D1 /* Storyboards */,
+				86855BD625536DBA002809D1 /* Model Controllers */,
+				86855BD525536DB3002809D1 /* Models */,
+				86855BD125536DA9002809D1 /* View Controllers */,
+				86855BCD25536DA2002809D1 /* Resources */,
 			);
 			path = "Movie Database";
 			sourceTree = "<group>";
@@ -126,6 +126,49 @@
 				86855BBA25536C8E002809D1 /* Info.plist */,
 			);
 			path = "Movie DatabaseUITests";
+			sourceTree = "<group>";
+		};
+		86855BCC25536D97002809D1 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				86855BA125536C8E002809D1 /* LaunchScreen.storyboard */,
+				86855B9C25536C8D002809D1 /* Main.storyboard */,
+				86855BE025537127002809D1 /* BrowseMovies.storyboard */,
+				86855BEB255372F7002809D1 /* SearchMovies.storyboard */,
+				86855BF025537328002809D1 /* SavedMovies.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		86855BCD25536DA2002809D1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				86855B9625536C8D002809D1 /* AppDelegate.swift */,
+				86855B9F25536C8E002809D1 /* Assets.xcassets */,
+				86855BA425536C8E002809D1 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		86855BD125536DA9002809D1 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		86855BD525536DB3002809D1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		86855BD625536DBA002809D1 /* Model Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Model Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,9 +274,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86855BEC255372F7002809D1 /* SearchMovies.storyboard in Resources */,
+				86855BF125537328002809D1 /* SavedMovies.storyboard in Resources */,
 				86855BA325536C8E002809D1 /* LaunchScreen.storyboard in Resources */,
 				86855BA025536C8E002809D1 /* Assets.xcassets in Resources */,
 				86855B9E25536C8D002809D1 /* Main.storyboard in Resources */,
+				86855BE125537127002809D1 /* BrowseMovies.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,9 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86855B9B25536C8D002809D1 /* ViewController.swift in Sources */,
 				86855B9725536C8D002809D1 /* AppDelegate.swift in Sources */,
-				86855B9925536C8D002809D1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,7 +482,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2WP5X762NJ;
-				INFOPLIST_FILE = "Movie Database/Info.plist";
+				INFOPLIST_FILE = "Movie Database/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -458,7 +502,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2WP5X762NJ;
-				INFOPLIST_FILE = "Movie Database/Info.plist";
+				INFOPLIST_FILE = "Movie Database/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

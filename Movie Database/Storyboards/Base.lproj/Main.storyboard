@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gts-q7-sPl">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--BrowseMovies-->
+        <scene sceneID="qGF-na-xBM">
+            <objects>
+                <viewControllerPlaceholder storyboardName="BrowseMovies" id="UgS-Tl-3s7" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="zJh-e4-vwt"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2zz-6c-RTZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-803" y="-100"/>
+        </scene>
+        <!--SearchMovies-->
+        <scene sceneID="wup-z7-dcx">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SearchMovies" id="lpD-nl-5pv" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="UD5-Sy-3WX"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o0M-AF-4NR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-588" y="-100"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="xHR-Yz-7Ub">
+            <objects>
+                <tabBarController id="gts-q7-sPl" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="F0T-dI-xvG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="UgS-Tl-3s7" kind="relationship" relationship="viewControllers" id="cdE-0c-CHI"/>
+                        <segue destination="lpD-nl-5pv" kind="relationship" relationship="viewControllers" id="Y7h-Ji-12R"/>
+                        <segue destination="cT9-Iq-Hhd" kind="relationship" relationship="viewControllers" id="PJj-J9-OpN"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z99-nZ-bhp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-588" y="-517"/>
+        </scene>
+        <!--SavedMovies-->
+        <scene sceneID="jJV-Px-hm9">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SavedMovies" id="cT9-Iq-Hhd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="g3N-bw-pdu"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XFX-BQ-k8u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-368" y="-100"/>
+        </scene>
+    </scenes>
+</document>
