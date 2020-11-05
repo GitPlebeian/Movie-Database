@@ -12,7 +12,7 @@
         <!--Saved-->
         <scene sceneID="elB-AD-NXD">
             <objects>
-                <viewController id="mMx-QP-t89" sceneMemberID="viewController">
+                <viewController id="mMx-QP-t89" customClass="SavedMoviesViewController" customModule="Movie_Database" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UZD-WC-cim">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

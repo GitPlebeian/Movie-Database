@@ -31,6 +31,7 @@
         <scene sceneID="xHR-Yz-7Ub">
             <objects>
                 <tabBarController id="gts-q7-sPl" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="upQ-8I-bAS"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="F0T-dI-xvG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
