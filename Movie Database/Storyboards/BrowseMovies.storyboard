@@ -46,11 +46,24 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Browse" image="ticket.fill" catalog="system" id="b7W-iV-K3d"/>
-                    <navigationItem key="navigationItem" title="Browse" id="F5d-3f-Lof">
-                        <barButtonItem key="rightBarButtonItem" title="Filter" id="WHR-iK-KYv"/>
+                    <navigationItem key="navigationItem" id="F5d-3f-Lof">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="I8y-gi-nNa">
+                            <rect key="frame" x="36.5" y="5.5" width="341" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Top Movies"/>
+                                <segment title="Popular Movies"/>
+                                <segment title="Top TV"/>
+                            </segments>
+                            <connections>
+                                <action selector="filmCategoryChanged:" destination="OFk-2w-Rm0" eventType="valueChanged" id="R8S-Oe-uL3"/>
+                            </connections>
+                        </segmentedControl>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="filmCategorySegmentedControl" destination="I8y-gi-nNa" id="FKd-wY-Vze"/>
                         <outlet property="filmTableView" destination="oJz-Ce-CE6" id="o3D-Ks-85M"/>
                     </connections>
                 </viewController>

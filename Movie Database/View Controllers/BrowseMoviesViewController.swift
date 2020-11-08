@@ -15,22 +15,15 @@ class BrowseMoviesViewController: UIViewController {
     
     // MARK: Views
     
-    @IBOutlet weak var filmTableView: UITableView!
+    @IBOutlet weak var filmTableView:                UITableView!
+    @IBOutlet weak var filmCategorySegmentedControl: UISegmentedControl!
     
     // MARK: Lifecycle
     
     // Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        MovieController.shared.getMoviesTest { (success) in
-            DispatchQueue.main.async {
-                if success {
-                    self.filmTableView.reloadData()
-                } else {
-                    
-                }
-            }
-        }
+        getNewFilms()
     }
     
     // Will Appear
@@ -38,6 +31,35 @@ class BrowseMoviesViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.tabBarController?.title = "Browse"
+    }
+    
+    // MARK: Actions
+    
+    @IBAction func filmCategoryChanged(_ sender: UISegmentedControl) {
+        getNewFilms()
+    }
+    
+    // MARK: Helpers
+    
+    // Get New Films
+    func getNewFilms() {
+        var search: BrowseSearches
+        switch filmCategorySegmentedControl.selectedSegmentIndex {
+        case 0: search = .topMovies
+        case 1: search = .popularMovies
+        case 2: search = .topTV
+        default:
+            fatalError("There are more segments that Browse Searches Enumerations")
+        }
+        MovieController.shared.getFilms(search: search) { (success) in
+            DispatchQueue.main.async {
+                if success {
+                    self.filmTableView.reloadData()
+                } else {
+
+                }
+            }
+        }
     }
     
 
@@ -71,7 +93,6 @@ extension BrowseMoviesViewController: UITableViewDelegate, UITableViewDataSource
         let film = MovieController.shared.browseFilms[indexPath.row]
         
         if film.poster == nil {
-            // Get Poster Image
             MovieController.shared.getMovieImage(index: indexPath.row) {
                 DispatchQueue.main.async {
                     self.filmTableView.reloadData()
@@ -84,6 +105,15 @@ extension BrowseMoviesViewController: UITableViewDelegate, UITableViewDataSource
                        totalFilmCount: MovieController.shared.browseFilms.count)
         
         return cell
+    }
+    
+    // Did Select
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let film = MovieController.shared.browseFilms[indexPath.row]
+        
+        let movieDetailViewController = MovieDetailViewController()
+        movieDetailViewController.film = film
+        navigationController?.pushViewController(movieDetailViewController, animated: true)
     }
 }
 

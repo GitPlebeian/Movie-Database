@@ -12,7 +12,8 @@ struct Film: Codable {
     let name: String?
     let popularity: Float
     let overview: String
-    let releaseDate: String
+    let releaseDate: String?
+    let firstAirDate: String?
     let posterPath: String?
     var poster: UIImage?
     
@@ -22,6 +23,7 @@ struct Film: Codable {
         case popularity
         case overview
         case releaseDate = "release_date"
+        case firstAirDate = "first_air_date"
     }
 }
 

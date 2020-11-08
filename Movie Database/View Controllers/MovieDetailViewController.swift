@@ -9,6 +9,10 @@ import UIKit
 
 class MovieDetailViewController: UIViewController {
 
+    // MARK: Properties
+    
+    var film: Film!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

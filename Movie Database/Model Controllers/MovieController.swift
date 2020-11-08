@@ -7,11 +7,20 @@
 
 import UIKit
 
+enum BrowseSearches: String, CaseIterable {
+    case topMovies     = "/movie/top_rated"
+    case popularMovies = "/movie/popular"
+    case topTV         = "/tv/top_rated"
+}
+
 class MovieController {
     
     // MARK: Shared
     
     static let shared = MovieController()
+    
+    // MARK: ENUMS
+    
     
     // MARK: Properties
     
@@ -20,11 +29,9 @@ class MovieController {
     // MARK: Public
     
     // Get Movies Test
-    func getMoviesTest(completion: @escaping (Bool) -> Void) {
-        let apiKey = "c17812157d6de4d9c61efdf69042bbce"
-        let defaultURL = "https://api.themoviedb.org/3/movie/popular?api_key="
-        
-        guard let url = URL(string: defaultURL + apiKey) else {
+    func getFilms(search: BrowseSearches  = .topMovies, completion: @escaping (Bool) -> Void) {
+        let urlString = Constants.primaryEndpointURL + search.rawValue + "?api_key=" + Constants.apiKey
+        guard let url = URL(string: urlString) else {
             completion(false)
             return
         }
@@ -76,11 +83,7 @@ class MovieController {
             }
             
             if let image = UIImage(data: data) {
-                if Int.random(in: 0...1) == 0 {
-                    self.browseFilms[index].poster = UIImage(named: "No Film Image")
-                } else {
-                    self.browseFilms[index].poster = image
-                }
+                self.browseFilms[index].poster = image
             } else {
                 self.browseFilms[index].poster = UIImage(named: "No Film Image")
             }
