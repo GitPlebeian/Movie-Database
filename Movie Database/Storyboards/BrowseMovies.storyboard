@@ -50,10 +50,13 @@
                         <barButtonItem key="rightBarButtonItem" title="Filter" id="WHR-iK-KYv"/>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="filmTableView" destination="oJz-Ce-CE6" id="o3D-Ks-85M"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AiU-tg-nik" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-142.02898550724638" y="241.74107142857142"/>
+            <point key="canvasLocation" x="-78" y="242"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Tj0-sj-729">

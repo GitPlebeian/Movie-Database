@@ -14,6 +14,13 @@
 		8682848825537B4300DF970B /* BrowseMovies.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8682848725537B4300DF970B /* BrowseMovies.storyboard */; };
 		8682848E25537F2500DF970B /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8682848D25537F2500DF970B /* MovieTableViewCell.swift */; };
 		8682849C2553857300DF970B /* MovieController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8682849B2553857300DF970B /* MovieController.swift */; };
+		868284A12553887D00DF970B /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868284A02553887D00DF970B /* Film.swift */; };
+		868284B52553C1E300DF970B /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 868284B02553C1E300DF970B /* Roboto-Light.ttf */; };
+		868284B62553C1E300DF970B /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 868284B12553C1E300DF970B /* Roboto-Black.ttf */; };
+		868284B72553C1E300DF970B /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 868284B22553C1E300DF970B /* Roboto-Bold.ttf */; };
+		868284B82553C1E300DF970B /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 868284B32553C1E300DF970B /* Roboto-Medium.ttf */; };
+		868284B92553C1E300DF970B /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 868284B42553C1E300DF970B /* Roboto-Regular.ttf */; };
+		868284BF2553C26100DF970B /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868284BE2553C26100DF970B /* Text.swift */; };
 		86855B9725536C8D002809D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86855B9625536C8D002809D1 /* AppDelegate.swift */; };
 		86855B9E25536C8D002809D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86855B9C25536C8D002809D1 /* Main.storyboard */; };
 		86855BA025536C8E002809D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86855B9F25536C8E002809D1 /* Assets.xcassets */; };
@@ -50,6 +57,13 @@
 		8682848725537B4300DF970B /* BrowseMovies.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BrowseMovies.storyboard; sourceTree = "<group>"; };
 		8682848D25537F2500DF970B /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		8682849B2553857300DF970B /* MovieController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieController.swift; sourceTree = "<group>"; };
+		868284A02553887D00DF970B /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
+		868284B02553C1E300DF970B /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		868284B12553C1E300DF970B /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
+		868284B22553C1E300DF970B /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		868284B32553C1E300DF970B /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		868284B42553C1E300DF970B /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		868284BE2553C26100DF970B /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		86855B9325536C8D002809D1 /* Movie Database.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movie Database.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86855B9625536C8D002809D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		86855B9D25536C8D002809D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -100,6 +114,26 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		868284AF2553C1B600DF970B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				868284B12553C1E300DF970B /* Roboto-Black.ttf */,
+				868284B22553C1E300DF970B /* Roboto-Bold.ttf */,
+				868284B02553C1E300DF970B /* Roboto-Light.ttf */,
+				868284B32553C1E300DF970B /* Roboto-Medium.ttf */,
+				868284B42553C1E300DF970B /* Roboto-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		868284BD2553C25600DF970B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				868284BE2553C26100DF970B /* Text.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		86855B8A25536C8D002809D1 = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +161,7 @@
 				86855BD125536DA9002809D1 /* View Controllers */,
 				86855BD625536DBA002809D1 /* Model Controllers */,
 				86855BD525536DB3002809D1 /* Models */,
+				868284BD2553C25600DF970B /* Helpers */,
 				86855BCD25536DA2002809D1 /* Resources */,
 			);
 			path = "Movie Database";
@@ -166,6 +201,7 @@
 		86855BCD25536DA2002809D1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				868284AF2553C1B600DF970B /* Fonts */,
 				86855B9625536C8D002809D1 /* AppDelegate.swift */,
 				86855B9F25536C8E002809D1 /* Assets.xcassets */,
 				86855BA425536C8E002809D1 /* Info.plist */,
@@ -188,6 +224,7 @@
 		86855BD525536DB3002809D1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				868284A02553887D00DF970B /* Film.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -305,10 +342,15 @@
 			files = (
 				86855BEC255372F7002809D1 /* SearchMovies.storyboard in Resources */,
 				86855BF125537328002809D1 /* SavedMovies.storyboard in Resources */,
+				868284B72553C1E300DF970B /* Roboto-Bold.ttf in Resources */,
 				8682848825537B4300DF970B /* BrowseMovies.storyboard in Resources */,
 				86855BA325536C8E002809D1 /* LaunchScreen.storyboard in Resources */,
 				86855BA025536C8E002809D1 /* Assets.xcassets in Resources */,
+				868284B92553C1E300DF970B /* Roboto-Regular.ttf in Resources */,
+				868284B62553C1E300DF970B /* Roboto-Black.ttf in Resources */,
 				86855BF92553743E002809D1 /* MovieDetail.storyboard in Resources */,
+				868284B82553C1E300DF970B /* Roboto-Medium.ttf in Resources */,
+				868284B52553C1E300DF970B /* Roboto-Light.ttf in Resources */,
 				86855B9E25536C8D002809D1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,8 +380,10 @@
 				8682847B2553799800DF970B /* MovieDetailViewController.swift in Sources */,
 				8682848E25537F2500DF970B /* MovieTableViewCell.swift in Sources */,
 				868284712553796300DF970B /* SearchMoviesViewController.swift in Sources */,
+				868284BF2553C26100DF970B /* Text.swift in Sources */,
 				86855B9725536C8D002809D1 /* AppDelegate.swift in Sources */,
 				8682849C2553857300DF970B /* MovieController.swift in Sources */,
+				868284A12553887D00DF970B /* Film.swift in Sources */,
 				868284762553797400DF970B /* SavedMoviesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -519,7 +563,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2WP5X762NJ;
 				INFOPLIST_FILE = "Movie Database/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -539,7 +583,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2WP5X762NJ;
 				INFOPLIST_FILE = "Movie Database/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
