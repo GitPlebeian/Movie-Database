@@ -44,6 +44,13 @@ class MovieTableViewCell: UITableViewCell {
         setupViews()
     }
     
+    // MARK: Prepare For Reuse
+    
+    override func prepareForReuse() {
+        posterImageView.image = nil
+        posterImageView.cancelImageLoad()
+    }
+    
     // MARK: Public Functions
     
     // Configure
@@ -60,14 +67,7 @@ class MovieTableViewCell: UITableViewCell {
             innerContentViewBottomConstraint.constant = interItemSpacing / -2
         }
         // Update Data
-        titleLabel.text = film.name
-        if let image = film.poster {
-            // Display Image
-            posterImageView.image = image
-        } else {
-            // Get Image From Server
-            posterImageView.image = nil
-        }
+        titleLabel.text = film.title ?? film.name
     }
     
     // MARK: Other Overrides
@@ -85,6 +85,7 @@ class MovieTableViewCell: UITableViewCell {
     // MARK: Setup Views
     
     private func setupViews() {
+        
         // Inner Content View
         let innerContentView = UIView()
         innerContentView.backgroundColor = .systemGray5

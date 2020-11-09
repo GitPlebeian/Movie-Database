@@ -24,13 +24,25 @@ class MovieController {
     
     // MARK: Properties
     
-    var browseFilms: [Film] = []
+    private var browseFilms: [Film] = []
     
     // MARK: Public
     
+    // Get Browse Films
+    func getBrowseFilms() -> [Film] {
+        return browseFilms
+    }
+    
+    // Empty Browse Films
+    func emptyBrowseFilms() {
+        browseFilms = []
+    }
+    
     // Get Movies Test
-    func getFilms(search: BrowseSearches  = .topMovies, completion: @escaping (Bool) -> Void) {
+    func getFilmsFromServer(search: BrowseSearches  = .topMovies, _ completion: @escaping (Bool) -> Void) {
+        
         let urlString = Constants.primaryEndpointURL + search.rawValue + "?api_key=" + Constants.apiKey
+        
         guard let url = URL(string: urlString) else {
             completion(false)
             return
@@ -55,39 +67,6 @@ class MovieController {
             } catch let e {
                 print(e)
             }
-        }.resume()
-    }
-    
-    // Get Movie Image
-    func getMovieImage(index: Int, completion: @escaping () -> Void) {
-        let filmImage = browseFilms[index].posterPath
-        let url = "https://image.tmdb.org/t/p/w500/" + filmImage!
-        
-        guard let finalURL = URL(string: url) else {
-            completion()
-            return
-        }
-        
-        URLSession.shared.dataTask(with: finalURL) { (data, _, error) in
-            if let error = error {
-                print("💩💩💩 Error finding film image: \(error)")
-                self.browseFilms[index].poster = UIImage(named: "No Film Image")
-                completion()
-                return
-            }
-            
-            guard let data = data else {
-                self.browseFilms[index].poster = UIImage(named: "No Film Image")
-                completion()
-                return
-            }
-            
-            if let image = UIImage(data: data) {
-                self.browseFilms[index].poster = image
-            } else {
-                self.browseFilms[index].poster = UIImage(named: "No Film Image")
-            }
-            completion()
         }.resume()
     }
     

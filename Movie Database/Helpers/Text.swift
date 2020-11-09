@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Text {
+struct Text {
     static let robotoMedium  = "Roboto-Medium"
     static let robotoBold    = "Roboto-Bold"
     static let robotoRegular = "Roboto-Regular"
