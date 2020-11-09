@@ -15,8 +15,9 @@ class BrowseMoviesViewController: UIViewController {
     
     // MARK: Views
     
-    @IBOutlet weak var filmTableView:                UITableView!
-    @IBOutlet weak var filmCategorySegmentedControl: UISegmentedControl!
+    @IBOutlet weak var filmTableView:                  UITableView!
+    weak var           filmTableViewRefreshController: UIRefreshControl!
+    @IBOutlet weak var filmCategorySegmentedControl:   UISegmentedControl!
     
     // MARK: Lifecycle
     
@@ -49,13 +50,13 @@ class BrowseMoviesViewController: UIViewController {
         case 1: search = .popularMovies
         case 2: search = .topTV
         default:
-            fatalError("There are more segments that Browse Searches Enumerations")
+            presentBasicAlert(title: "Uh-Oh!", message: "Unable to search for movies. Please contact dev team.")
+            return
         }
-        MovieController.shared.emptyBrowseFilms()
-        filmTableView.reloadData()
+        MovieController.shared.cancelBrowseFilmsTask()
         MovieController.shared.getFilmsFromServer(search: search) { (success) in
             DispatchQueue.main.async {
-                self.filmTableView.refreshControl?.endRefreshing()
+                self.filmTableViewRefreshController.endRefreshing()
                 if success {
                     self.filmTableView.reloadData()
                 } else {
@@ -79,7 +80,9 @@ class BrowseMoviesViewController: UIViewController {
         
         let filmTableViewRefreshController = UIRefreshControl()
         filmTableViewRefreshController.addTarget(self, action: #selector(tableViewRefreshed), for: .valueChanged)
-        filmTableView.refreshControl = filmTableViewRefreshController
+        filmTableView.addSubview(filmTableViewRefreshController)
+        self.filmTableViewRefreshController = filmTableViewRefreshController
+        filmTableView.sendSubviewToBack(filmTableViewRefreshController)
     }
 }
 

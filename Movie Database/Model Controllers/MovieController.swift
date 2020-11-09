@@ -21,10 +21,10 @@ class MovieController {
     
     // MARK: ENUMS
     
-    
     // MARK: Properties
     
-    private var browseFilms: [Film] = []
+    private var browseFilms:    [Film] = []
+    private var browseFilmTask: URLSessionDataTask?
     
     // MARK: Public
     
@@ -48,10 +48,13 @@ class MovieController {
             return
         }
         
-        URLSession.shared.dataTask(with: url) { (data, _, error) in
+        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+            
             if let error = error {
-                print("💩💩💩 Error finding movies: \(error)")
-                completion(false)
+                if (error as NSError).code != NSURLErrorCancelled {
+                    print("💩💩💩 Error finding movies: \(error)")
+                    completion(false)
+                }
                 return
             }
             
@@ -59,6 +62,7 @@ class MovieController {
                 completion(false)
                 return
             }
+            
             do {
                 let decoder = JSONDecoder()
                 let film = try decoder.decode(Results.self, from: data)
@@ -67,7 +71,14 @@ class MovieController {
             } catch let e {
                 print(e)
             }
-        }.resume()
+        }
+        task.resume()
+        browseFilmTask = task
+    }
+    
+    // Cancel Brose Films Task
+    func cancelBrowseFilmsTask() {
+        browseFilmTask?.cancel()
     }
     
     // MARK: Helpers
