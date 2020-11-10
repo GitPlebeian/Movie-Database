@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mMx-QP-t89">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Jc7-03-iz5">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -9,22 +9,68 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Saved-->
+        <!--Navigation Controller-->
+        <scene sceneID="Q1r-tb-apT">
+            <objects>
+                <navigationController id="Jc7-03-iz5" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="70W-97-5TH">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="mMx-QP-t89" kind="relationship" relationship="rootViewController" id="XhQ-wz-Uar"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lYp-MZ-Npn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-536" y="171"/>
+        </scene>
+        <!--Saved Films-->
         <scene sceneID="elB-AD-NXD">
             <objects>
                 <viewController id="mMx-QP-t89" customClass="SavedMoviesViewController" customModule="Movie_Database" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UZD-WC-cim">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qte-Un-zI2">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieCell" id="XNQ-rE-cIQ" customClass="MovieTableViewCell" customModule="Movie_Database" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XNQ-rE-cIQ" id="fML-TW-Q9d" customClass="MovieTableViewCell" customModule="Movie_Database" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="mMx-QP-t89" id="i4n-zd-0I8"/>
+                                    <outlet property="delegate" destination="mMx-QP-t89" id="gh2-be-zbO"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="F4K-14-udF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qte-Un-zI2" firstAttribute="top" secondItem="UZD-WC-cim" secondAttribute="top" id="6wG-dK-GHu"/>
+                            <constraint firstItem="qte-Un-zI2" firstAttribute="trailing" secondItem="F4K-14-udF" secondAttribute="trailing" id="Fvu-F9-T4h"/>
+                            <constraint firstItem="qte-Un-zI2" firstAttribute="leading" secondItem="F4K-14-udF" secondAttribute="leading" id="Qsu-aH-jDp"/>
+                            <constraint firstAttribute="bottom" secondItem="qte-Un-zI2" secondAttribute="bottom" id="hXn-2j-N93"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Saved" image="books.vertical.fill" catalog="system" id="Dli-vP-HO7"/>
+                    <navigationItem key="navigationItem" title="Saved Films" id="sfh-UU-LMh"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="filmTableView" destination="qte-Un-zI2" id="X4c-lq-xHH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Usa-lW-eO5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="203" y="171"/>
+            <point key="canvasLocation" x="202.89855072463769" y="170.75892857142856"/>
         </scene>
     </scenes>
     <resources>

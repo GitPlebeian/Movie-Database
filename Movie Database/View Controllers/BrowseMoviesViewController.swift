@@ -11,7 +11,8 @@ class BrowseMoviesViewController: UIViewController {
 
     // MARK: Properties
     
-    var selectionFeedback: UISelectionFeedbackGenerator = UISelectionFeedbackGenerator()
+    let selectionFeedback: UISelectionFeedbackGenerator = UISelectionFeedbackGenerator()
+    var shouldReloadTableView: Bool = true
     
     // MARK: Views
     
@@ -32,9 +33,18 @@ class BrowseMoviesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if shouldReloadTableView {
+            filmTableView.reloadData()
+        }
         if let indexPath = filmTableView.indexPathForSelectedRow {
             filmTableView.deselectRow(at: indexPath, animated: true)
         }
+    }
+    
+    // Did Appear
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        shouldReloadTableView = true
     }
     
     // MARK: Actions
@@ -111,15 +121,11 @@ extension BrowseMoviesViewController: UITableViewDelegate, UITableViewDataSource
         
         let film = MovieController.shared.getBrowseFilms()[indexPath.row]
         
-        let url = Constants.imageEndpointURL + "w500/" + film.posterPath!
-        guard let imgURL = URL(string: url) else {
-            return UITableViewCell()
-        }
-        
-        cell.posterImageView.loadImage(at: imgURL)
+        cell.delegate = self
         cell.configure(indexPath: indexPath,
                        film: film,
-                       totalFilmCount: MovieController.shared.getBrowseFilms().count)
+                       totalFilmCount: MovieController.shared.getBrowseFilms().count,
+                       filmIndex: indexPath.row)
         
         return cell
     }
@@ -132,6 +138,16 @@ extension BrowseMoviesViewController: UITableViewDelegate, UITableViewDataSource
         let movieDetailViewController = MovieDetailViewController()
         movieDetailViewController.film = film
         movieDetailViewController.posterImage = cell.posterImageView.image
+        shouldReloadTableView = false
         navigationController?.pushViewController(movieDetailViewController, animated: true)
+    }
+}
+
+extension BrowseMoviesViewController: MovieTableViewCellDelegate {
+    
+    // Favorite Button Tapped
+    func favoriteButtonTapped(filmIndex: Int, saved: Bool) {
+        selectionFeedback.selectionChanged()
+        MovieController.shared.browseFilmSaveUpdated(filmIndex: filmIndex, saved: saved)
     }
 }

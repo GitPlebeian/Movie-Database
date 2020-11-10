@@ -7,7 +7,17 @@
 
 import UIKit
 
+protocol MovieTableViewCellDelegate: class {
+    func favoriteButtonTapped(filmIndex: Int, saved: Bool)
+}
+
 class MovieTableViewCell: UITableViewCell {
+    
+    // MARK: Properties
+    
+    var         delegate:  MovieTableViewCellDelegate?
+    private var film:      Film!
+    private var filmIndex: Int!
     
     // MARK: Views
     
@@ -46,7 +56,9 @@ class MovieTableViewCell: UITableViewCell {
     // MARK: Public Functions
     
     // Configure
-    func configure(indexPath: IndexPath, film: Film, totalFilmCount: Int) {
+    func configure(indexPath: IndexPath, film: Film, totalFilmCount: Int, filmIndex: Int) {
+        self.film = film
+        self.filmIndex = filmIndex
         // Update cell spacing
         if indexPath.row == 0 {
             innerContentViewTopConstraint.constant = interItemSpacing
@@ -58,11 +70,20 @@ class MovieTableViewCell: UITableViewCell {
             innerContentViewTopConstraint.constant = interItemSpacing / 2
             innerContentViewBottomConstraint.constant = interItemSpacing / -2
         }
-        // Update Data
+        // Title
         titleLabel.text = film.title ?? film.name
+        // Poster Image
         let url = Constants.imageEndpointURL + "w500/" + (film.posterPath ?? "")
         guard let imgURL = URL(string: url) else {return}
         posterImageView.loadImage(at: imgURL)
+        // Favorite Button
+        var favoriteButtonImage: UIImage?
+        if film.saved {
+            favoriteButtonImage = UIImage(systemName: "heart.fill")
+        } else {
+            favoriteButtonImage = UIImage(systemName: "heart")
+        }
+        favoriteButtonImageView.image = favoriteButtonImage
     }
     
     // MARK: Other Overrides
@@ -83,6 +104,17 @@ class MovieTableViewCell: UITableViewCell {
     }
     
     // MARK: Actions
+    
+    // Favorite Tapped
+    @objc func favoriteTapped() {
+        if film.saved {
+            favoriteButtonImageView.image = UIImage(systemName: "heart")
+        } else {
+            favoriteButtonImageView.image = UIImage(systemName: "heart.fill")
+        }
+        film.saved = !film.saved
+        delegate?.favoriteButtonTapped(filmIndex: filmIndex, saved: film.saved)
+    }
     
     // MARK: Setup Views
     
@@ -199,7 +231,8 @@ class MovieTableViewCell: UITableViewCell {
         
         // Favorite Button
         let favoriteButton = UIButton()
-        favoriteButton.tintColor = .systemYellow
+        favoriteButton.tintColor = .systemRed
+        favoriteButton.addTarget(self, action: #selector(favoriteTapped), for: .touchUpInside)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         rowOneStackView.addArrangedSubview(favoriteButton)
         NSLayoutConstraint.activate([
@@ -209,7 +242,7 @@ class MovieTableViewCell: UITableViewCell {
         self.favoriteButton = favoriteButton
         
         // Favorite Button Image View
-        let favoriteButtonImageView = UIImageView(image: UIImage(systemName: "star"))
+        let favoriteButtonImageView = UIImageView()
         favoriteButtonImageView.contentMode = .scaleAspectFit
         favoriteButtonImageView.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.addSubview(favoriteButtonImageView)

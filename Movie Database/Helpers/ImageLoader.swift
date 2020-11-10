@@ -41,7 +41,7 @@ class ImageLoader {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             
             // Remove this task from running requests
-            defer {self.runningRequests.removeValue(forKey: uuid) }
+            defer {self.runningRequests.removeValue(forKey: uuid)}
             
             if let error = error {
                 if (error as NSError).code != NSURLErrorCancelled {

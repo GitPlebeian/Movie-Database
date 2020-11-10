@@ -12,13 +12,8 @@ class SearchMoviesViewController: UIViewController {
     // MARK: Properties
     
     let searchController = UISearchController(searchResultsController: nil)
-    var isSearchBarEmpty: Bool {
-        return searchController.searchBar.text?.isEmpty ?? true
-    }
-    var isFiltering: Bool {
-        let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
-        return searchController.isActive && (!isSearchBarEmpty || searchBarScopeIsFiltering)
-    }
+    let selectionFeedback: UISelectionFeedbackGenerator = UISelectionFeedbackGenerator()
+    var shouldReloadTableView: Bool = true
     
     // MARK: Views
     
@@ -37,10 +32,19 @@ class SearchMoviesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if shouldReloadTableView {
+            filmTableView.reloadData()
+        }
         if let indexPath = filmTableView.indexPathForSelectedRow {
             filmTableView.deselectRow(at: indexPath, animated: true)
         }
         dismiss(animated: false, completion: nil)
+    }
+    
+    // Did Appear
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        shouldReloadTableView = true
     }
     
     // MARK: Setup View
@@ -54,7 +58,6 @@ class SearchMoviesViewController: UIViewController {
         definesPresentationContext = true
         
         searchController.searchBar.scopeButtonTitles = ["Movies", "Tv"]
-        
     }
 }
 
@@ -70,9 +73,11 @@ extension SearchMoviesViewController: UITableViewDelegate, UITableViewDataSource
         
         let film = MovieController.shared.getSearchFilms()[indexPath.row]
         
+        cell.delegate = self
         cell.configure(indexPath: indexPath,
                        film: film,
-                       totalFilmCount: MovieController.shared.getSearchFilms().count)
+                       totalFilmCount: MovieController.shared.getSearchFilms().count,
+                       filmIndex: indexPath.row)
         
         return cell
     }
@@ -84,6 +89,7 @@ extension SearchMoviesViewController: UITableViewDelegate, UITableViewDataSource
         let movieDetailViewController = MovieDetailViewController()
         movieDetailViewController.film = film
         movieDetailViewController.posterImage = cell.posterImageView.image
+        shouldReloadTableView = false
         navigationController?.pushViewController(movieDetailViewController, animated: true)
     }
 }
@@ -106,5 +112,14 @@ extension SearchMoviesViewController: UISearchResultsUpdating {
                 self.filmTableView.reloadData()
             }
         }
+    }
+}
+
+extension SearchMoviesViewController: MovieTableViewCellDelegate {
+    
+    // Favorite Button Tapped
+    func favoriteButtonTapped(filmIndex: Int, saved: Bool) {
+        selectionFeedback.selectionChanged()
+        MovieController.shared.searchFilmSaveUpdated(filmIndex: filmIndex, saved: saved)
     }
 }

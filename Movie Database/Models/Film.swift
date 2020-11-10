@@ -9,15 +9,17 @@ import UIKit
 
 
 struct Film: Codable {
-    let title: String?
-    let name: String?
-    let popularity: Float
-    let overview: String
-    let releaseDate: String?
+    let id:           Int
+    let title:        String?
+    let name:         String?
+    let popularity:   Float
+    let overview:     String
+    let releaseDate:  String?
     let firstAirDate: String?
-    var posterPath: String?
-    var backdropPath: String?
-    var posterImage: UIImage?
+    let posterPath:   String?
+    let backdropPath: String?
+    var posterImage:  UIImage?
+    var saved:        Bool = false
     
     init?(film: Film) {
         if film.posterPath == nil ||
@@ -26,6 +28,7 @@ struct Film: Codable {
             (film.releaseDate == nil && film.firstAirDate == nil) {
             return nil
         }
+        self.id           = film.id
         self.title        = film.title
         self.name         = film.name
         self.popularity   = film.popularity
@@ -35,9 +38,11 @@ struct Film: Codable {
         self.posterPath   = film.posterPath
         self.backdropPath = film.backdropPath
         self.posterImage  = film.posterImage
+        self.saved        = film.saved
     }
     
     enum CodingKeys: String, CodingKey {
+        case id
         case posterPath = "poster_path"
         case title = "title"
         case name = "name"
