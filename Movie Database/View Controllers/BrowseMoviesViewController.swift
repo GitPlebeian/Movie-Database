@@ -28,6 +28,15 @@ class BrowseMoviesViewController: UIViewController {
         getNewFilms()
     }
     
+    // Will Appear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let indexPath = filmTableView.indexPathForSelectedRow {
+            filmTableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
     // MARK: Actions
     
     // Film Category Changed
@@ -37,6 +46,8 @@ class BrowseMoviesViewController: UIViewController {
     
     // Table View Refreshed
     @objc func tableViewRefreshed() {
+        MovieController.shared.emptyBrowseFilms()
+        filmTableView.reloadData()
         getNewFilms()
     }
     
@@ -77,7 +88,6 @@ class BrowseMoviesViewController: UIViewController {
     // MARK: Setup Views
     
     func setupViews() {
-        
         let filmTableViewRefreshController = UIRefreshControl()
         filmTableViewRefreshController.addTarget(self, action: #selector(tableViewRefreshed), for: .valueChanged)
         filmTableView.addSubview(filmTableViewRefreshController)
@@ -98,8 +108,6 @@ extension BrowseMoviesViewController: UITableViewDelegate, UITableViewDataSource
     // Cell for row at
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as? MovieTableViewCell else {return UITableViewCell()}
-        
-        cell.delegate = self
         
         let film = MovieController.shared.getBrowseFilms()[indexPath.row]
         
@@ -125,13 +133,5 @@ extension BrowseMoviesViewController: UITableViewDelegate, UITableViewDataSource
         movieDetailViewController.film = film
         movieDetailViewController.posterImage = cell.posterImageView.image
         navigationController?.pushViewController(movieDetailViewController, animated: true)
-    }
-}
-
-extension BrowseMoviesViewController: MovieTableViewCellDelegate {
-    
-    // Favorite Toggled
-    func favoriteToggled() {
-        selectionFeedback.selectionChanged()
     }
 }

@@ -7,15 +7,7 @@
 
 import UIKit
 
-protocol MovieTableViewCellDelegate: class {
-    func favoriteToggled()
-}
-
 class MovieTableViewCell: UITableViewCell {
-
-    // MARK: Properties
-    
-    weak var delegate: MovieTableViewCellDelegate?
     
     // MARK: Views
     
@@ -68,19 +60,29 @@ class MovieTableViewCell: UITableViewCell {
         }
         // Update Data
         titleLabel.text = film.title ?? film.name
+        let url = Constants.imageEndpointURL + "w500/" + (film.posterPath ?? "")
+        guard let imgURL = URL(string: url) else {return}
+        posterImageView.loadImage(at: imgURL)
     }
     
     // MARK: Other Overrides
     
-    override func setSelected(_ selected: Bool, animated: Bool) {}
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {}
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        if selected {
+            innerContentView.backgroundColor = .systemGray2
+        } else {
+            innerContentView.backgroundColor = .systemGray5
+        }
+    }
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        if highlighted {
+            innerContentView.backgroundColor = .systemGray2
+        } else {
+            innerContentView.backgroundColor = .systemGray5
+        }
+    }
     
     // MARK: Actions
-    
-    // Favorite Button Tapped
-    @objc private func favoriteButtonTapped() {
-        delegate?.favoriteToggled()
-    }
     
     // MARK: Setup Views
     
@@ -197,7 +199,6 @@ class MovieTableViewCell: UITableViewCell {
         
         // Favorite Button
         let favoriteButton = UIButton()
-        favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         favoriteButton.tintColor = .systemYellow
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         rowOneStackView.addArrangedSubview(favoriteButton)

@@ -19,6 +19,24 @@ struct Film: Codable {
     var backdropPath: String?
     var posterImage: UIImage?
     
+    init?(film: Film) {
+        if film.posterPath == nil ||
+            film.overview == "" ||
+            (film.title == nil && film.name == nil) ||
+            (film.releaseDate == nil && film.firstAirDate == nil) {
+            return nil
+        }
+        self.title        = film.title
+        self.name         = film.name
+        self.popularity   = film.popularity
+        self.overview     = film.overview
+        self.releaseDate  = film.releaseDate
+        self.firstAirDate = film.firstAirDate
+        self.posterPath   = film.posterPath
+        self.backdropPath = film.backdropPath
+        self.posterImage  = film.posterImage
+    }
+    
     enum CodingKeys: String, CodingKey {
         case posterPath = "poster_path"
         case title = "title"
