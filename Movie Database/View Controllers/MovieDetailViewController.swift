@@ -41,6 +41,12 @@ class MovieDetailViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         handleBackdropImage()
+        MovieController.shared.setLastSelectedFilm(film: film)
+        if posterImage == nil {
+            let url = Constants.imageEndpointURL + "w500/" + (film.posterPath ?? "")
+            guard let imgURL = URL(string: url) else {return}
+            posterImageView.loadImage(at: imgURL)
+        }
     }
     
     // MARK: Helpers
@@ -52,7 +58,7 @@ class MovieDetailViewController: UIViewController {
             return
         }
         
-        let url = "https://image.tmdb.org/t/p/original/" + backdropPath
+        let url = Constants.imageEndpointURL + "original/" + backdropPath // We do "original/" gets us the high resolution image compared to "w500/" witch only gets a 500px width image
         
         guard let imgURL = URL(string: url) else {
             completion(nil)
@@ -308,7 +314,7 @@ class MovieDetailViewController: UIViewController {
 extension MovieDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Used for the paralax effect when scrolling up or down
-        if shouldAnimateBackdrop {
+        if shouldAnimateBackdrop { // If we don't have a backdrop image then just don't do anything here
             if scrollView.contentOffset.y < 0 {
                 backdropImageViewTopConstraintNormal.isActive = false
                 backdropImageViewTopConstraintStretchy.isActive = true

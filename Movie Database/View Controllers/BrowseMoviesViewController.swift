@@ -11,8 +11,8 @@ class BrowseMoviesViewController: UIViewController {
 
     // MARK: Properties
     
-    let selectionFeedback: UISelectionFeedbackGenerator = UISelectionFeedbackGenerator()
-    var shouldReloadTableView: Bool = true
+    let selectionFeedback:     UISelectionFeedbackGenerator = UISelectionFeedbackGenerator()
+    var shouldReloadTableView: Bool = true // We don't want the table view to be reloaded when we come back from a MovieDetailViewController
     
     // MARK: Views
     
@@ -27,6 +27,12 @@ class BrowseMoviesViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         getNewFilms()
+        
+        if let film = MovieController.shared.getLastSelectedFilm() {
+            let movieDetailViewController = MovieDetailViewController()
+            movieDetailViewController.film = film
+            present(movieDetailViewController, animated: false, completion: nil)
+        }
     }
     
     // Will Appear
@@ -34,7 +40,7 @@ class BrowseMoviesViewController: UIViewController {
         super.viewWillAppear(animated)
         
         if shouldReloadTableView {
-            filmTableView.reloadData()
+            filmTableView.reloadData() // We don't want the table view to be reloaded when we come back from a MovieDetailViewController
         }
         if let indexPath = filmTableView.indexPathForSelectedRow {
             filmTableView.deselectRow(at: indexPath, animated: true)
@@ -44,7 +50,7 @@ class BrowseMoviesViewController: UIViewController {
     // Did Appear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        shouldReloadTableView = true
+        shouldReloadTableView = true // We don't want the table view to be reloaded when we come back from a MovieDetailViewController
     }
     
     // MARK: Actions
@@ -75,7 +81,7 @@ class BrowseMoviesViewController: UIViewController {
             return
         }
         MovieController.shared.cancelBrowseFilmsTask()
-        MovieController.shared.getFilmsFromServer(search: search) { (success) in
+        MovieController.shared.getBrowseFilmsFromServer(search: search) { (success) in
             DispatchQueue.main.async {
                 self.filmTableViewRefreshController.endRefreshing()
                 if success {
@@ -98,6 +104,7 @@ class BrowseMoviesViewController: UIViewController {
     // MARK: Setup Views
     
     func setupViews() {
+        // Adds refresh controller
         let filmTableViewRefreshController = UIRefreshControl()
         filmTableViewRefreshController.addTarget(self, action: #selector(tableViewRefreshed), for: .valueChanged)
         filmTableView.addSubview(filmTableViewRefreshController)
@@ -132,6 +139,7 @@ extension BrowseMoviesViewController: UITableViewDelegate, UITableViewDataSource
     
     // Did Select
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let film = MovieController.shared.getBrowseFilms()[indexPath.row]
         guard let cell = tableView.cellForRow(at: indexPath)! as? MovieTableViewCell else {return}
         

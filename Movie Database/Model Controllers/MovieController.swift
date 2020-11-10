@@ -24,30 +24,25 @@ class MovieController {
     
     static let shared = MovieController()
     
-    // MARK: ENUMS
-    
     // MARK: Properties
     
-    private var browseFilms:    [Film] = []
-    private var searchFilms:    [Film] = []
-    private var savedFilms:     [Int: Film] = [:]
-    private var browseFilmTask: URLSessionDataTask?
-    private var searchFilmTask: URLSessionDataTask?
+    private var lastSelectedFilm: Film? // Used for "5. When the app is closed, the app remembers the last selected feature and opens with that as the default view. If it is the first time, open with “Top rated movies” or anything of your preference."
+    private var browseFilms:      [Film] = []
+    private var searchFilms:      [Film] = []
+    private var savedFilms:       [Int: Film] = [:]
+    private var browseFilmTask:   URLSessionDataTask?
+    private var searchFilmTask:   URLSessionDataTask?
     
     // MARK: Browse Films
     
     // Get Browse Films
-    func getBrowseFilms() -> [Film] {
-        return browseFilms
-    }
+    func getBrowseFilms() -> [Film] {browseFilms}
     
     // Empty Browse Films
-    func emptyBrowseFilms() {
-        browseFilms = []
-    }
+    func emptyBrowseFilms() {browseFilms = []}
     
     // Get Browse Films
-    func getFilmsFromServer(search: BrowseSearches  = .topMovies, _ completion: @escaping (Bool) -> Void) {
+    func getBrowseFilmsFromServer(search: BrowseSearches  = .topMovies, _ completion: @escaping (Bool) -> Void) {
         
         let urlString = Constants.primaryEndpointURL + search.rawValue + "?api_key=" + Constants.apiKey
         
@@ -73,8 +68,8 @@ class MovieController {
             
             do {
                 let decoder = JSONDecoder()
-                let films = try decoder.decode(Results.self, from: data)
-                self.browseFilms = films.results.compactMap {
+                let results = try decoder.decode(GetFilmsAPIResults.self, from: data)
+                self.browseFilms = results.films.compactMap { // Use compact map and the Film.init? so that we only get the more "popular/famous" films
                     guard var film = Film(film: $0) else {return nil}
                     film.saved = self.isFilmSaved(film: film)
                     return film
@@ -102,14 +97,10 @@ class MovieController {
     // MARK: Search Films
     
     // Get Serach Films
-    func getSearchFilms() -> [Film] {
-        return searchFilms
-    }
+    func getSearchFilms() -> [Film] {searchFilms}
     
     // Empty Browse Films
-    func emptySearchFilms() {
-        searchFilms = []
-    }
+    func emptySearchFilms() {searchFilms = []}
     
     // Get Search Films
     func getSearchFilmsFromServer(search: String, filmSearchType: FilmSearch, _ completion: @escaping (Bool) -> Void) {
@@ -138,15 +129,15 @@ class MovieController {
             
             do {
                 let decoder = JSONDecoder()
-                let films = try decoder.decode(Results.self, from: data)
-                self.searchFilms = films.results.compactMap {
+                let results = try decoder.decode(GetFilmsAPIResults.self, from: data)
+                self.searchFilms = results.films.compactMap { // Use compact map and the Film.init? so that we only get the more "popular/famous" films
                     guard var film = Film(film: $0) else {return nil}
                     film.saved = self.isFilmSaved(film: film)
                     return film
                 }
                 completion(true)
-            } catch let e {
-                print(e)
+            } catch let error {
+                print("Error decoding films in \(#function) \(error)")
             }
         }
         task.resume()
@@ -203,13 +194,9 @@ class MovieController {
     }
     
     // Is Film Saved
-    private func isFilmSaved(film: Film) -> Bool {
-        return savedFilms[film.id] != nil
-    }
+    private func isFilmSaved(film: Film) -> Bool {savedFilms[film.id] != nil}
     
-    // MARK: Helpers
-    
-    // MARK: Persistence
+    // MARK: Saved Films Persistence
     
     // Save Data
     func saveFilms() {
@@ -229,8 +216,8 @@ class MovieController {
             let jsonDecoder = JSONDecoder()
             let savedFilms = try jsonDecoder.decode([Int: Film].self, from: data)
             self.savedFilms = savedFilms
-        } catch {
-            //
+        } catch let error {
+            print("Error loading last selected film: \(error)")
         }
     }
     
@@ -239,6 +226,49 @@ class MovieController {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = paths[0]
         let fileName = "savedFilms.json"
+        let fullURL = documentDirectory.appendingPathComponent(fileName)
+        return fullURL
+    }
+    
+    // MARK: Last Selected Film
+    
+    // Get
+    func getLastSelectedFilm() -> Film? {lastSelectedFilm}
+    
+    // Set
+    func setLastSelectedFilm(film: Film) {
+        lastSelectedFilm = film
+        saveLastSelectedFilm()
+    }
+    
+    // Save Data
+    func saveLastSelectedFilm() {
+        let jsonEncoder = JSONEncoder()
+        do {
+            let data = try jsonEncoder.encode(lastSelectedFilm)
+            try data.write(to: lastSelectedFilmURL())
+        } catch let e {
+            print(e)
+        }
+    }
+    
+    // Load Data
+    func loadLastSelectedFilm() {
+        do {
+            let data = try Data(contentsOf: lastSelectedFilmURL())
+            let jsonDecoder = JSONDecoder()
+            let lastSelectedFilm = try jsonDecoder.decode(Film.self, from: data)
+            self.lastSelectedFilm = lastSelectedFilm
+        } catch let error {
+            print("Error loading last selected film: \(error)")
+        }
+    }
+    
+    // File URL
+    func lastSelectedFilmURL() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = paths[0]
+        let fileName = "lastSelectedFilm.json"
         let fullURL = documentDirectory.appendingPathComponent(fileName)
         return fullURL
     }

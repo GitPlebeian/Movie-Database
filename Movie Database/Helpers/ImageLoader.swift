@@ -24,7 +24,7 @@ class ImageLoader {
     
     static let shared = ImageLoader()
     
-    private var loadedImages = [URL: UIImage]()
+    private var loadedImages    = [URL: UIImage]()
     private var runningRequests = [UUID: URLSessionDataTask]()
     
     // Load Image

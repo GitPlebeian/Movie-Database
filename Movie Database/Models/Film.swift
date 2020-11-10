@@ -12,13 +12,11 @@ struct Film: Codable {
     let id:           Int
     let title:        String?
     let name:         String?
-    let popularity:   Float
     let overview:     String
     let releaseDate:  String?
     let firstAirDate: String?
     let posterPath:   String?
     let backdropPath: String?
-    var posterImage:  UIImage?
     var saved:        Bool = false
     
     init?(film: Film) {
@@ -31,13 +29,11 @@ struct Film: Codable {
         self.id           = film.id
         self.title        = film.title
         self.name         = film.name
-        self.popularity   = film.popularity
         self.overview     = film.overview
         self.releaseDate  = film.releaseDate
         self.firstAirDate = film.firstAirDate
         self.posterPath   = film.posterPath
         self.backdropPath = film.backdropPath
-        self.posterImage  = film.posterImage
         self.saved        = film.saved
     }
     
@@ -46,7 +42,6 @@ struct Film: Codable {
         case posterPath = "poster_path"
         case title = "title"
         case name = "name"
-        case popularity
         case overview
         case releaseDate = "release_date"
         case firstAirDate = "first_air_date"
@@ -54,13 +49,11 @@ struct Film: Codable {
     }
 }
 
-struct Results: Codable {
-    let results: [Film]
-    let totalResults: Int
+struct GetFilmsAPIResults: Codable {
+    let films: [Film]
     
     enum CodingKeys: String, CodingKey {
-        case results
-        case totalResults = "total_results"
+        case films = "results"
     }
 }
 

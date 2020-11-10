@@ -16,8 +16,8 @@ class MovieTableViewCell: UITableViewCell {
     // MARK: Properties
     
     var         delegate:  MovieTableViewCellDelegate?
-    private var film:      Film!
-    private var filmIndex: Int!
+    private var film:      Film! // Used for updating the cell if the favorite button has been toggled
+    private var filmIndex: Int! // Used to tell delegate that the favorite button has been toggled
     
     // MARK: Views
     
@@ -50,7 +50,7 @@ class MovieTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         posterImageView.image = nil
-        posterImageView.cancelImageLoad()
+        posterImageView.cancelImageLoad() // If the cell is still waiting on an image from the server we cancel the call to prevent cells from having the wrong poster images
     }
     
     // MARK: Public Functions
