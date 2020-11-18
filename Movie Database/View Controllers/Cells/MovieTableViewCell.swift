@@ -73,7 +73,7 @@ class MovieTableViewCell: UITableViewCell {
         // Title
         titleLabel.text = film.title ?? film.name
         // Poster Image
-        let url = Constants.imageEndpointURL + "w500/" + (film.posterPath ?? "")
+        let url = Constants.imageHost + "/t/p/w500/" + (film.posterPath ?? "")
         guard let imgURL = URL(string: url) else {return}
         posterImageView.loadImage(at: imgURL)
         // Favorite Button

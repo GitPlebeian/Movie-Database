@@ -16,7 +16,6 @@
 		8682847B2553799800DF970B /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8682847A2553799800DF970B /* MovieDetailViewController.swift */; };
 		8682848825537B4300DF970B /* BrowseMovies.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8682848725537B4300DF970B /* BrowseMovies.storyboard */; };
 		8682848E25537F2500DF970B /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8682848D25537F2500DF970B /* MovieTableViewCell.swift */; };
-		8682849C2553857300DF970B /* MovieController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8682849B2553857300DF970B /* MovieController.swift */; };
 		868284A12553887D00DF970B /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868284A02553887D00DF970B /* Film.swift */; };
 		868284B52553C1E300DF970B /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 868284B02553C1E300DF970B /* Roboto-Light.ttf */; };
 		868284B62553C1E300DF970B /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 868284B12553C1E300DF970B /* Roboto-Black.ttf */; };
@@ -66,7 +65,6 @@
 		8682847A2553799800DF970B /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		8682848725537B4300DF970B /* BrowseMovies.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BrowseMovies.storyboard; sourceTree = "<group>"; };
 		8682848D25537F2500DF970B /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
-		8682849B2553857300DF970B /* MovieController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieController.swift; sourceTree = "<group>"; };
 		868284A02553887D00DF970B /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
 		868284B02553C1E300DF970B /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		868284B12553C1E300DF970B /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
@@ -259,7 +257,6 @@
 		86855BD625536DBA002809D1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8682849B2553857300DF970B /* MovieController.swift */,
 				86A9F7DA2564F69700521B1D /* FilmNetworkRequests.swift */,
 				86A9F7E7256505E000521B1D /* FilmPersistence.swift */,
 			);
@@ -417,7 +414,6 @@
 				868C0D8D2557AFB100310D33 /* Constants.swift in Sources */,
 				86855B9725536C8D002809D1 /* AppDelegate.swift in Sources */,
 				86A9F7DB2564F69700521B1D /* FilmNetworkRequests.swift in Sources */,
-				8682849C2553857300DF970B /* MovieController.swift in Sources */,
 				86A9F7E8256505E000521B1D /* FilmPersistence.swift in Sources */,
 				868284A12553887D00DF970B /* Film.swift in Sources */,
 				868284762553797400DF970B /* SavedMoviesViewController.swift in Sources */,

@@ -30,7 +30,7 @@ class BrowseMoviesViewController: UIViewController {
         setupViews()
         getNewFilms()
         
-        if let film = MovieController.shared.getLastSelectedFilm() {
+        if let film = FilmPersistence.shared.getLastSelectedFilm() {
             let movieDetailViewController = MovieDetailViewController()
             movieDetailViewController.film = film
             present(movieDetailViewController, animated: false, completion: nil)
@@ -168,7 +168,6 @@ extension BrowseMoviesViewController: MovieTableViewCellDelegate {
     // Favorite Button Tapped
     func favoriteButtonTapped(filmIndex: Int, saved: Bool) {
         selectionFeedback.selectionChanged()
-        films[filmIndex].saved = saved
         FilmPersistence.shared.savedUpdated(film: films[filmIndex], saved: saved)
     }
 }

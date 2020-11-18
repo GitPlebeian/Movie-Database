@@ -15,11 +15,20 @@ class FilmPersistence {
     
     // MARK: Properties
     
-    var savedFilms:       [Int: Film] = [:]
-    var lastSelectedFilm: Film?
+    private var savedFilms:       [Int: Film] = [:]
+    private var lastSelectedFilm: Film?
     
     // Is Film Saved
     func isFilmSaved(film: Film) -> Bool {savedFilms[film.id] != nil}
+    
+    // Get Saved Films
+    func getSavedFilms() -> [Film] {
+        var films: [Film] = []
+        for (_, value) in savedFilms {
+            films.append(value)
+        }
+        return films
+    }
     
     // Save Updated
     func savedUpdated(film: Film, saved: Bool) {
@@ -57,7 +66,7 @@ class FilmPersistence {
     // MARK: Saved Films Persistence
     
     // Save Data
-    func saveFilms() {
+    private func saveFilms() {
         let jsonEncoder = JSONEncoder()
         do {
             let data = try jsonEncoder.encode(savedFilms)
@@ -80,10 +89,53 @@ class FilmPersistence {
     }
     
     // File URL
-    func filmsFileURL() -> URL {
+    private func filmsFileURL() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = paths[0]
         let fileName = Constants.savedFilmsURL
+        let fullURL = documentDirectory.appendingPathComponent(fileName)
+        return fullURL
+    }
+    
+    // MARK: Last Selected Film
+    
+    // Get
+    func getLastSelectedFilm() -> Film? {lastSelectedFilm}
+    
+    // Set
+    func setLastSelectedFilm(film: Film) {
+        lastSelectedFilm = film
+        saveLastSelectedFilm()
+    }
+    
+    // Save Data
+    private func saveLastSelectedFilm() {
+        let jsonEncoder = JSONEncoder()
+        do {
+            let data = try jsonEncoder.encode(lastSelectedFilm)
+            try data.write(to: lastSelectedFilmURL())
+        } catch let e {
+            print(e)
+        }
+    }
+    
+    // Load Data
+    func loadLastSelectedFilm() {
+        do {
+            let data = try Data(contentsOf: lastSelectedFilmURL())
+            let jsonDecoder = JSONDecoder()
+            let lastSelectedFilm = try jsonDecoder.decode(Film.self, from: data)
+            self.lastSelectedFilm = lastSelectedFilm
+        } catch let error {
+            print("Error loading last selected film: \(error)")
+        }
+    }
+    
+    // File URL
+    private func lastSelectedFilmURL() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = paths[0]
+        let fileName = Constants.lastSavedFilmURL
         let fullURL = documentDirectory.appendingPathComponent(fileName)
         return fullURL
     }

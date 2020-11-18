@@ -40,10 +40,11 @@ class MovieDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        handleBackdropImage()
-        MovieController.shared.setLastSelectedFilm(film: film)
+        configureBackdropImage()
+        FilmPersistence.shared.setLastSelectedFilm(film: film)
+        // Get poster image if needed
         if posterImage == nil {
-            let url = Constants.imageEndpointURL + "w500/" + (film.posterPath ?? "")
+            let url = Constants.imageHost + "/t/p/w500/" + (film.posterPath ?? "")
             guard let imgURL = URL(string: url) else {return}
             posterImageView.loadImage(at: imgURL)
         }
@@ -51,59 +52,50 @@ class MovieDetailViewController: UIViewController {
     
     // MARK: Helpers
     
-    // Start Backdrop Image Request
-    func startBackdropImageRequest(_ completion: @escaping (UIImage?) -> Void) {
-        guard let backdropPath = film.backdropPath else {
-            completion(nil)
-            return
-        }
-        
-        let url = Constants.imageEndpointURL + "original/" + backdropPath // We do "original/" gets us the high resolution image compared to "w500/" witch only gets a 500px width image
-        
-        guard let imgURL = URL(string: url) else {
-            completion(nil)
-            return
-        }
-        URLSession.shared.dataTask(with: imgURL) { data, response, error in
-            
-            if let error = error {
-                print("💩💩💩 Error in \(#function) \(error.localizedDescription)")
-                completion(nil)
-                return
-            }
-            
-            guard let data = data else {
-                completion(nil)
-                return
-            }
-            
-            if let image = UIImage(data: data) {
-                completion(image)
-                return
-            }
-            completion(nil)
-        }.resume()
-    }
-    
     // Handle Backdrop Image
-    func handleBackdropImage() {
-        startBackdropImageRequest { (backdropImage) in
+    func configureBackdropImage() {
+        // Make sure we have a backdrop path
+        guard let backdropPath = film.backdropPath else {
+            disableBackdropImage()
+            return
+        }
+        // Start request
+        FilmNetworkRequests.getFilmBackdropImage(backdropPath: backdropPath) { [weak self] (result) in
+            guard let self = self else {return}
             DispatchQueue.main.async {
                 self.backdropActivityIndicator.stopAnimating()
-                if let backdropImage = backdropImage {
-                    self.backdropImageView.image = backdropImage
-                } else {
-                    // Updates constraints so that the valid content is moved up to fill the space of the empty backdrop image view
-                    self.shouldAnimateBackdrop = false
-                    self.informationViewTopLayoutConstraint.isActive = false
-                    self.informationViewTopLayoutConstraint = self.informationView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 16)
-                    self.informationViewTopLayoutConstraint.isActive = true
-                    self.posterImageViewVerticalConstraint.isActive = false
-                    self.posterImageViewVerticalConstraint = self.posterImageView.topAnchor.constraint(equalTo: self.informationView.topAnchor)
-                    self.posterImageViewVerticalConstraint.isActive = true
+                do {
+                    if let image = try result.get() {
+                        self.backdropImageView.image = image
+                    } else {
+                        self.disableBackdropImage()
+                    }
+                } catch let error {
+                    self.presentBasicAlert(title: "uh-Oh!", message: error.localizedDescription)
+                    self.disableBackdropImage()
                 }
             }
         }
+    }
+    
+    // Disable Backdrop Image
+    func disableBackdropImage() {
+        // Updates constraints so that the valid content is moved up to fill the space of the empty backdrop image view
+        shouldAnimateBackdrop = false
+        informationViewTopLayoutConstraint.isActive = false
+        informationViewTopLayoutConstraint = informationView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16)
+        informationViewTopLayoutConstraint.isActive = true
+        posterImageViewVerticalConstraint.isActive = false
+        posterImageViewVerticalConstraint = posterImageView.topAnchor.constraint(equalTo: informationView.topAnchor)
+        posterImageViewVerticalConstraint.isActive = true
+    }
+    
+    // Present Basic Alert
+    func presentBasicAlert(title: String?, message: String?) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true)
     }
     
     // MARK: Setup Views

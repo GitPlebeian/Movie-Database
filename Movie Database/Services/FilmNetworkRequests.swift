@@ -5,7 +5,7 @@
 //  Created by Jackson Tubbs on 11/17/20.
 //
 
-import Foundation
+import UIKit
 
 enum GetFilmsError: Error {
     case dataConvert
@@ -95,5 +95,31 @@ class FilmNetworkRequests {
             }
         }
         return task
+    }
+    
+    // MARK: Get Film Backdrop image
+    
+    static func getFilmBackdropImage(backdropPath: String, _ completion: @escaping (Result<UIImage?, Error>) -> Void) {
+        
+        guard let url = URL(string: Constants.imageHost + "/t/p/original" + backdropPath) else {
+            print("💩💩💩 Unable to get a valid url from URLComponents in \(#function) | File: \(#file) | Line: \(#line)")
+            completion(.failure(GenericNetworkError.urlCreation))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+            if let error = error {
+                print("💩💩💩 Error getting image in \(#function) | File: \(#file) | Line: \(#line) \(error)")
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(URLSessionError.dataNotProvided))
+                return
+            }
+            
+            completion(.success(UIImage(data: data)))
+        }.resume()
     }
 }

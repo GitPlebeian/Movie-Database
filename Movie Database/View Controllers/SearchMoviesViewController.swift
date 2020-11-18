@@ -151,7 +151,7 @@ extension SearchMoviesViewController: MovieTableViewCellDelegate {
     // Favorite Button Tapped
     func favoriteButtonTapped(filmIndex: Int, saved: Bool) {
         selectionFeedback.selectionChanged()
-        films[filmIndex].saved = saved
+//        films[filmIndex].saved = saved
         FilmPersistence.shared.savedUpdated(film: films[filmIndex], saved: saved)
     }
 }
