@@ -7,19 +7,6 @@
 
 import UIKit
 
-enum ImageLoadingError: Error {
-    case dataConvert
-}
-
-extension ImageLoadingError: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
-        case .dataConvert:
-            return NSLocalizedString("Description of data convert error", comment: "Unable to convert data to image.")
-        }
-    }
-}
-
 class ImageLoader {
     
     static let shared = ImageLoader()

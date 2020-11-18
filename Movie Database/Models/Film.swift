@@ -49,7 +49,7 @@ struct Film: Codable {
     }
 }
 
-struct GetFilmsAPIResults: Codable {
+struct FilmAPIResults: Codable {
     let films: [Film]
     
     enum CodingKeys: String, CodingKey {

@@ -9,8 +9,14 @@ import Foundation
 
 struct Constants {
     static let apiKey             = "c17812157d6de4d9c61efdf69042bbce"
-    static let primaryEndpointURL = "https://api.themoviedb.org/3"
+    static let movieHost          = "api.themoviedb.org/3"
     static let imageEndpointURL   = "https://image.tmdb.org/t/p/"
+}
+
+struct QueryKeys {
+    // For Getting Films From Database
+    static let api = "api_key"
+    static let filmSearch = "query"
 }
 
 enum URLSessionError: Error {
