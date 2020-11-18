@@ -35,3 +35,7 @@ enum FilmSearch: String {
     case movie = "/search/movie"
     case tv    = "/search/tv"
 }
+
+extension Notification.Name {
+    static let savedMoviesUpdated = Notification.Name("Saved Movies Updated")
+}

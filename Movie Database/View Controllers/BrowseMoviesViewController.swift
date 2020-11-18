@@ -35,6 +35,9 @@ class BrowseMoviesViewController: UIViewController {
             movieDetailViewController.film = film
             present(movieDetailViewController, animated: false, completion: nil)
         }
+        
+        // Add Observers
+        NotificationCenter.default.addObserver(self, selector: #selector(savedFilmsUpdated), name: .savedMoviesUpdated, object: nil)
     }
     
     // Will Appear
@@ -69,6 +72,11 @@ class BrowseMoviesViewController: UIViewController {
         getNewFilms()
     }
     
+    // Saved Films Updated
+    @objc func savedFilmsUpdated() {
+        FilmPersistence.shared.updateFilmSavedValues(films: &films)
+    }
+    
     // MARK: Helpers
     
     // Get New Films
@@ -83,7 +91,8 @@ class BrowseMoviesViewController: UIViewController {
             return
         }
         getFilmsDataTask?.cancel()
-        self.getFilmsDataTask = FilmNetworkRequests.getConfiguredFilms(search: nil, searchType: search) { (result) in
+        self.getFilmsDataTask = FilmNetworkRequests.getConfiguredFilms(search: nil, searchType: search) { [weak self] (result) in
+            guard let self = self else {return}
             DispatchQueue.main.async {
                 do {
                     self.films = try result.get()
@@ -159,6 +168,7 @@ extension BrowseMoviesViewController: MovieTableViewCellDelegate {
     // Favorite Button Tapped
     func favoriteButtonTapped(filmIndex: Int, saved: Bool) {
         selectionFeedback.selectionChanged()
-        MovieController.shared.browseFilmSaveUpdated(filmIndex: filmIndex, saved: saved)
+        films[filmIndex].saved = saved
+        FilmPersistence.shared.savedUpdated(film: films[filmIndex], saved: saved)
     }
 }
