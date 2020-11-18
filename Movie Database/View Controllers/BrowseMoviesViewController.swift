@@ -11,6 +11,8 @@ class BrowseMoviesViewController: UIViewController {
 
     // MARK: Properties
     
+    var films:                 [Film] = []
+    var getFilmsDataTask:      URLSessionDataTask?
     let selectionFeedback:     UISelectionFeedbackGenerator = UISelectionFeedbackGenerator()
     var shouldReloadTableView: Bool = true // We don't want the table view to be reloaded when we come back from a MovieDetailViewController
     
@@ -62,7 +64,7 @@ class BrowseMoviesViewController: UIViewController {
     
     // Table View Refreshed
     @objc func tableViewRefreshed() {
-        MovieController.shared.emptyBrowseFilms()
+        films = []
         filmTableView.reloadData()
         getNewFilms()
     }
@@ -80,14 +82,15 @@ class BrowseMoviesViewController: UIViewController {
             presentBasicAlert(title: "Uh-Oh!", message: "Unable to search for movies. Please contact dev team.")
             return
         }
-        MovieController.shared.cancelBrowseFilmsTask()
-        MovieController.shared.getBrowseFilmsFromServer(search: search) { (success) in
+        getFilmsDataTask?.cancel()
+        self.getFilmsDataTask = FilmNetworkRequests.getConfiguredFilms(search: nil, searchType: search) { (result) in
             DispatchQueue.main.async {
-                self.filmTableViewRefreshController.endRefreshing()
-                if success {
+                do {
+                    self.films = try result.get()
+                    self.filmTableViewRefreshController.endRefreshing()
                     self.filmTableView.reloadData()
-                } else {
-                    self.presentBasicAlert(title: "Oh-Oh!", message: "Unable to get films from server. Pull down to retry.")
+                } catch let error {
+                    self.presentBasicAlert(title: "Oh-Oh!", message: error.localizedDescription)
                 }
             }
         }
@@ -119,19 +122,19 @@ extension BrowseMoviesViewController: UITableViewDelegate, UITableViewDataSource
     
     // Num rows in section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MovieController.shared.getBrowseFilms().count
+        return films.count
     }
     
     // Cell for row at
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as? MovieTableViewCell else {return UITableViewCell()}
         
-        let film = MovieController.shared.getBrowseFilms()[indexPath.row]
+        let film = films[indexPath.row]
         
         cell.delegate = self
         cell.configure(indexPath: indexPath,
                        film: film,
-                       totalFilmCount: MovieController.shared.getBrowseFilms().count,
+                       totalFilmCount: films.count,
                        filmIndex: indexPath.row)
         
         return cell
@@ -140,7 +143,7 @@ extension BrowseMoviesViewController: UITableViewDelegate, UITableViewDataSource
     // Did Select
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let film = MovieController.shared.getBrowseFilms()[indexPath.row]
+        let film = films[indexPath.row]
         guard let cell = tableView.cellForRow(at: indexPath)! as? MovieTableViewCell else {return}
         
         let movieDetailViewController = MovieDetailViewController()

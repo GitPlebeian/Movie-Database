@@ -22,9 +22,9 @@ extension GetFilmsError: LocalizedError {
 
 class FilmNetworkRequests {
     
-    // MARK: Get Films
+    // MARK: Get Raw Films
     
-    static func getFilms(search: (String, FilmSearch)?, searchType: BrowseSearches = .topMovies, _ completion: @escaping (Result<[Film], Error>) -> Void?) -> URLSessionDataTask? {
+    static func getRawFilms(search: (String, FilmSearch)?, searchType: BrowseSearches = .topMovies, _ completion: @escaping (Result<[Film], Error>) -> Void) -> URLSessionDataTask? {
         // Create a url
         var components = URLComponents()
         components.scheme = "https"
@@ -32,12 +32,15 @@ class FilmNetworkRequests {
         if let search = search {
             components.path = "/3" + search.1.rawValue
             components.queryItems = [
-                URLQueryItem(name: QueryKeys.filmSearch, value: search.0)
+                URLQueryItem(name: QueryKeys.filmSearch, value: search.0),
+                URLQueryItem(name: QueryKeys.api, value: Constants.apiKey)
             ]
         } else {
             components.path = "/3" + searchType.rawValue
+            components.queryItems = [
+                URLQueryItem(name: QueryKeys.api, value: Constants.apiKey)
+            ]
         }
-        components.queryItems?.append(URLQueryItem(name: QueryKeys.api, value: Constants.apiKey))
         guard let url = components.url else {
             print("💩💩💩 Unable to get a valid url from URLComponents in \(#function) | File: \(#file) | Line: \(#line)")
             completion(.failure(GenericNetworkError.urlCreation))
@@ -48,7 +51,7 @@ class FilmNetworkRequests {
         let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
             if let error = error {
                 if (error as NSError).code != NSURLErrorCancelled {
-                    print("💩💩💩 Error getting films in \(#function) | File: \(#file) | Line: \(#line)")
+                    print("💩💩💩 Error getting films in \(#function) | File: \(#file) | Line: \(#line) \(error)")
                     completion(.failure(error))
                 }
                 return
@@ -70,6 +73,27 @@ class FilmNetworkRequests {
             }
         }
         task.resume()
+        return task
+    }
+    
+    // MARK: Get Configured Films
+    
+    /// Gets only films that are "popular" and contain values I want in my movie browsing
+    static func getConfiguredFilms(search: (String, FilmSearch)?, searchType: BrowseSearches = .topMovies, _ completion: @escaping (Result<[Film], Error>) -> Void) -> URLSessionDataTask? {
+        let task = getRawFilms(search: search, searchType: searchType) { (result) in
+            do {
+                var films = try result.get()
+                films = films.compactMap {
+                    guard var film = Film(film: $0) else {return nil}
+                    film.saved = FilmPersistence.shared.isFilmSaved(film: film)
+                    return film
+                }
+                completion(.success(films))
+            } catch let error {
+                print("💩💩💩 Error loading image in \(#function) \(error)")
+                completion(.failure(error))
+            }
+        }
         return task
     }
 }

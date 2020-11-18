@@ -36,6 +36,7 @@
 		868C0D8D2557AFB100310D33 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868C0D8C2557AFB100310D33 /* Constants.swift */; };
 		86A9F7DB2564F69700521B1D /* FilmNetworkRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A9F7DA2564F69700521B1D /* FilmNetworkRequests.swift */; };
 		86A9F7E02564F6C700521B1D /* Generic Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A9F7DF2564F6C700521B1D /* Generic Enums.swift */; };
+		86A9F7E8256505E000521B1D /* FilmPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A9F7E7256505E000521B1D /* FilmPersistence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		868C0D8C2557AFB100310D33 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		86A9F7DA2564F69700521B1D /* FilmNetworkRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmNetworkRequests.swift; sourceTree = "<group>"; };
 		86A9F7DF2564F6C700521B1D /* Generic Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Generic Enums.swift"; sourceTree = "<group>"; };
+		86A9F7E7256505E000521B1D /* FilmPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmPersistence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +261,7 @@
 			children = (
 				8682849B2553857300DF970B /* MovieController.swift */,
 				86A9F7DA2564F69700521B1D /* FilmNetworkRequests.swift */,
+				86A9F7E7256505E000521B1D /* FilmPersistence.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				86855B9725536C8D002809D1 /* AppDelegate.swift in Sources */,
 				86A9F7DB2564F69700521B1D /* FilmNetworkRequests.swift in Sources */,
 				8682849C2553857300DF970B /* MovieController.swift in Sources */,
+				86A9F7E8256505E000521B1D /* FilmPersistence.swift in Sources */,
 				868284A12553887D00DF970B /* Film.swift in Sources */,
 				868284762553797400DF970B /* SavedMoviesViewController.swift in Sources */,
 			);

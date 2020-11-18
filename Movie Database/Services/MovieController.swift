@@ -16,10 +16,6 @@ class MovieController {
     // MARK: Properties
     
     private var lastSelectedFilm: Film? // Used for "5. When the app is closed, the app remembers the last selected feature and opens with that as the default view. If it is the first time, open with “Top rated movies” or anything of your preference."
-    private var browseFilmTask:   URLSessionDataTask?
-    private var searchFilmTask:   URLSessionDataTask?
-    
-    // MARK: Browse Films
     
     // Get Browse Films
 //    func getBrowseFilmsFromServer(search: BrowseSearches  = .topMovies, _ completion: @escaping (Bool) -> Void) {
@@ -60,7 +56,7 @@ class MovieController {
     
     // Cancel Browse Films Task
     func cancelBrowseFilmsTask() {
-        browseFilmTask?.cancel()
+//        browseFilmTask?.cancel()
     }
     
     // Browse Film Save Updated
@@ -120,9 +116,9 @@ class MovieController {
 //    }
     
     // Cancel Search Films Task
-    func cancelSearchFilmsTask() {
-        searchFilmTask?.cancel()
-    }
+//    func cancelSearchFilmsTask() {
+//        searchFilmTask?.cancel()
+//    }
     
     // Search Films Save Updated
     func searchFilmSaveUpdated(filmIndex: Int, saved: Bool) {
@@ -139,6 +135,7 @@ class MovieController {
 //            films.append(value)
 //        }
 //        return films
+        return []
     }
     
     func updateFilmSaved(film: Film, saved: Bool) {
